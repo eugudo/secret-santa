@@ -1,4 +1,4 @@
-# Secret Santa API
+# Secret Santa
 
 ###### Node version: >= 14.18.2
 ###### Npm version: >= 6.14.15
