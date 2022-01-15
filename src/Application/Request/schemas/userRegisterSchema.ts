@@ -1,6 +1,6 @@
 import { Schema } from 'express-validator';
 import { validateArrayOfStrings } from '@/helpers/routesParamsValidation/validateArrayOfStrings';
-import { varCharParamSchema } from '@/helpers/routesParamsValidation/paramSchemas/varCharParamSchema';
+import { varCharParamSchema } from '@/Application/Request/paramSchemas/varCharParamSchema';
 
 export const registerSchema: Schema = {
     user: {

@@ -3,12 +3,12 @@ import { CoupleDTO } from '@/types/userRoutes/CoupleDTO';
 import { CreateEntityResponse } from '@/types/CreateEntityResponse';
 import express from 'express';
 import { GetCoupleRequest } from '@/types/userRoutes/GetCoupleRequest';
-import { registerSchema } from '@/helpers/routesParamsValidation/schemas/userRegisterSchema';
+import { registerSchema } from '@/Application/Request/schemas/userRegisterSchema';
 import { Request } from 'express';
 import { Response } from 'express';
 import { ServerDTO } from '@/types/ServerDTO';
 import { UserController } from '@/controllers/UserController';
-import { userCoupleSchema } from '@/helpers/routesParamsValidation/schemas/userCoupleSchema';
+import { userCoupleSchema } from '@/Application/Request/schemas/userCoupleSchema';
 import { UserRegisterDTO } from '@/types/userRoutes/UserRegisterDTO';
 
 const router = express.Router();

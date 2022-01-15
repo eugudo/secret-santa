@@ -1,10 +1,11 @@
 import { CoupleDTO } from '@/types/userRoutes/CoupleDTO';
 import { Couples } from '@/models/Couples';
 import { CreateEntityResponse } from '@/types/CreateEntityResponse';
-import { ErrorDTO } from '@/types/ServerDTO';
+import { ErrorDTO } from '@/types/ErrorDTO';
 import { GetCoupleRequest } from '@/types/userRoutes/GetCoupleRequest';
 import { getSuccessResponseTemplate } from '@/helpers/getSuccessResponseTemplate';
 import { Gifts } from '@/models/Gifts';
+import { RegisterUserHandler } from '@/Application/Command/RegisterUserHandler';
 import { Request } from 'express';
 import { Response } from 'express';
 import { ServerDTO } from '@/types/ServerDTO';
@@ -14,50 +15,15 @@ import { validationResult } from 'express-validator';
 
 export class UserController {
     async register(req: Request<Record<string, unknown>, Record<string, unknown>, UserRegisterDTO>, res: Response<ServerDTO<CreateEntityResponse>>): Promise<void> {
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            res.status(400).json({ errors: errors.array() }).send();
-            return;
-        }
-        const totalUsers = await Users.findAndCountAll();
-        const maxUsersInDb = 500;
-        if (totalUsers.count >= maxUsersInDb) {
-            const err: ErrorDTO = {
-                msg: 'Maximum number of users created.',
-            };
-            res.status(403).send({ errors: [err] });
-            return;
-        }
-
-        const couples = await Couples.findAndCountAll();
-        if (couples.count) {
-            const err: ErrorDTO = {
-                msg: 'Sorry, couples already created.',
-            };
-            res.status(403).send({ errors: [err] });
-            return;
-        }
-
-        const userId: number = await new Promise((resolve, reject) => {
-            Users.create(req.body.user).then((value) => {
-                resolve(value.getDataValue('id'));
-            }).catch((e) => {
-                reject(e);
+        const handler = new RegisterUserHandler(req);
+        const response = await handler.getResponse();
+        if (response.data && !response.hasError) {
+            res.status(response.status).send({
+                data: response.data, errors: response.errors,
             });
-        });
-
-        await new Promise((resolve, reject) => {
-            Gifts.create({
-                user_id: userId, gifts: JSON.stringify(req.body.gifts),
-            }).then((value) => {
-                resolve(value.getDataValue('id'));
-            }).catch((e) => {
-                reject(e);
-            });
-        });
-
-        const response = getSuccessResponseTemplate<CreateEntityResponse>({ id: userId });
-        res.send(response);
+            return;
+        }
+        res.status(response.status).send({ errors: response.errors });
     }
 
     async getCouple(req: Request<Record<string, unknown>, Record<string, unknown>, Record<string, unknown>, GetCoupleRequest>, res: Response<ServerDTO<CoupleDTO>>): Promise<void> {

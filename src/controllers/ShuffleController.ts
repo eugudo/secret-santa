@@ -1,6 +1,6 @@
 import { CoupleDTO } from '@/types/userRoutes/CoupleDTO';
 import { Couples } from '@/models/Couples';
-import { ErrorDTO } from '@/types/ServerDTO';
+import { ErrorDTO } from '@/types/ErrorDTO';
 import { Request } from 'express';
 import { Response } from 'express';
 import { ServerDTO } from '@/types/ServerDTO';
