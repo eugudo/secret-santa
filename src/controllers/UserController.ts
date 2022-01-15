@@ -1,12 +1,12 @@
-import { CoupleDTO } from '@/types/userRoutes/CoupleDTO';
-import { CreateEntityResponse } from '@/types/CreateEntityResponse';
-import { GetCoupleRequest } from '@/types/userRoutes/GetCoupleRequest';
+import { CoupleDTO } from '@/types/userRoutes/get/CoupleDTO';
+import { CreateEntityResponse } from '@/types/userRoutes/post/CreateEntityResponse';
+import { GetCoupleQueryParams } from '@/types/userRoutes/get/GetCoupleQueryParams';
 import { GetUserCoupleHandler } from '@/Application/Command/GetUserCoupleHandler';
 import { RegisterUserHandler } from '@/Application/Command/RegisterUserHandler';
 import { Request } from 'express';
 import { Response } from 'express';
 import { ServerDTO } from '@/types/ServerDTO';
-import { UserRegisterDTO } from '@/types/userRoutes/UserRegisterDTO';
+import { UserRegisterDTO } from '@/types/userRoutes/post/UserRegisterDTO';
 
 export class UserController {
     async register(req: Request<Record<string, unknown>, Record<string, unknown>, UserRegisterDTO>, res: Response<ServerDTO<CreateEntityResponse>>): Promise<void> {
@@ -21,7 +21,7 @@ export class UserController {
         res.status(response.status).send({ errors: response.errors });
     }
 
-    async getCouple(req: Request<Record<string, unknown>, Record<string, unknown>, Record<string, unknown>, GetCoupleRequest>, res: Response<ServerDTO<CoupleDTO>>): Promise<void> {
+    async getCouple(req: Request<Record<string, unknown>, Record<string, unknown>, Record<string, unknown>, GetCoupleQueryParams>, res: Response<ServerDTO<CoupleDTO>>): Promise<void> {
         const handler = new GetUserCoupleHandler(req);
         const response = await handler.getResponse();
         if (response.data && !response.hasError) {

@@ -1,10 +1,10 @@
 import { Couples } from '@/models/Couples';
-import { CreateEntityResponse } from '@/types/CreateEntityResponse';
+import { CreateEntityResponse } from '@/types/userRoutes/post/CreateEntityResponse';
 import { ErrorDTO } from '@/types/ErrorDTO';
 import { Gifts } from '@/models/Gifts';
 import { HandlerOperationResult } from '@/types/HandlerOperationResult';
 import { Request } from 'express';
-import { UserRegisterDTO } from '@/types/userRoutes/UserRegisterDTO';
+import { UserRegisterDTO } from '@/types/userRoutes/post/UserRegisterDTO';
 import { Users } from '@/models/Users';
 import { validationResult } from 'express-validator';
 

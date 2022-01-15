@@ -1,4 +1,4 @@
-import { CoupleDTO } from '@/types/userRoutes/CoupleDTO';
+import { CoupleDTO } from '@/types/userRoutes/get/CoupleDTO';
 import express from 'express';
 import { Request } from 'express';
 import { Response } from 'express';

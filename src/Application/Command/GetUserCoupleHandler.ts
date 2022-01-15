@@ -1,7 +1,7 @@
-import { CoupleDTO } from '@/types/userRoutes/CoupleDTO';
+import { CoupleDTO } from '@/types/userRoutes/get/CoupleDTO';
 import { Couples } from '@/models/Couples';
 import { ErrorDTO } from '@/types/ErrorDTO';
-import { GetCoupleRequest } from '@/types/userRoutes/GetCoupleRequest';
+import { GetCoupleQueryParams } from '@/types/userRoutes/get/GetCoupleQueryParams';
 import { Gifts } from '@/models/Gifts';
 import { HandlerOperationResult } from '@/types/HandlerOperationResult';
 import { Request } from 'express';
@@ -9,9 +9,9 @@ import { Users } from '@/models/Users';
 import { validationResult } from 'express-validator';
 
 export class GetUserCoupleHandler {
-    private request: Request<Record<string, unknown>, Record<string, unknown>, Record<string, unknown>, GetCoupleRequest>;
+    private request: Request<Record<string, unknown>, Record<string, unknown>, Record<string, unknown>, GetCoupleQueryParams>;
 
-    constructor(req: Request<Record<string, unknown>, Record<string, unknown>, Record<string, unknown>, GetCoupleRequest>) {
+    constructor(req: Request<Record<string, unknown>, Record<string, unknown>, Record<string, unknown>, GetCoupleQueryParams>) {
         this.request = req;
     }
 
