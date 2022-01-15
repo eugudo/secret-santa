@@ -1,7 +1,7 @@
 # Secret Santa API
 
-###### Node version: 14.18.2
-###### Npm version: 6.14.15
+###### Node version: >= 14.18.2
+###### Npm version: >= 6.14.15
 
 - [Installation](#installation)
 - [Deploy](#deploy)
