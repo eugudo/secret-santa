@@ -1,10 +1,12 @@
 const path = require('path');
 const NodemonPlugin = require('nodemon-webpack-plugin');
+const nodeExternals = require('webpack-node-externals');
 
 module.exports = (env = {}) => ({
     mode: env.dev ? 'development' : 'production',
     entry: path.resolve(__dirname, 'src/index.ts'),
-    target: 'node',
+    externalsPresets: { node: true },
+    externals: [nodeExternals()],
     devtool: 'inline-source-map',
     resolve: {
         alias: {
@@ -23,12 +25,12 @@ module.exports = (env = {}) => ({
     },
     output: {
         filename: 'server.js',
-        path: path.resolve(__dirname, 'dist'),
+        path: path.resolve(__dirname, 'public'),
     },
     plugins: [
         new NodemonPlugin({
-            script: './dist/server.js',
-            watch: path.resolve('./dist'),
+            script: './public/server.js',
+            watch: path.resolve('./public'),
             ignore: ['*.js.map'],
             ext: 'js,njk,json',
             delay: '1000',
